@@ -10,7 +10,7 @@
     
     body
     {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif !important;
     }
     .app-topbar
     {
@@ -27,7 +27,49 @@
     {
         margin-right:-0.1rem;
     }
+    .app-button
+    {
+        color:#3C7 !important;
+        font-size:1.2rem;
+        font-weight:bold !important;
+    }
 
+    p
+    {
+        color:black !important;
+    }
+
+    strong
+    {
+        font-size:1.2rem;
+    }
+    #content
+    {
+        font-size:1rem;
+        letter-spacing: -0.02rem !important;
+    }
+
+    #wel
+    {
+        
+        height:90px;
+        
+    }
+
+    #userwel
+    {
+        position:relative;
+        top:30px;
+    }
+    #usercont
+    {
+        font-size:1.6rem;
+    }
+
+    .break
+    {
+        height:0px;
+    }
     </style>
   </head>
 
@@ -39,6 +81,25 @@
         <div class="app-title"><i id="homeicon" class="fas fa-home"></i> Home page</div>
       </div>
       <div class="app-content">
+
+        <p class="app-section" id="wel"> <span id="userwel"><strong id="usercont" ><i class="fas fa-user"></i> Hello New User</strong></span></p>
+       
+       
+        <p class="app-section"><strong>Welcome to MailTO !</strong><br><br><span id="content">Here you can compose and send messages to whoever you want.This app will also create a contact list based on your usage. </span></p>
+        
+        <div class="break">&nbsp;</div>
+        
+        <div class="app-section">
+                <div class="app-button" data-target="page2">Setup Account</div>
+        </div>
+
+        <div class="app-section">
+                <div class="app-button" data-target="page2">Add Account</div>
+        </div>
+        <div class="app-section">
+                <div class="app-button" data-target="page2">Contact List</div>
+        </div>
+
         <div class="app-section">
           <div class="app-button" data-target="page2">Send A new Email</div>
         </div>
@@ -50,7 +111,7 @@
 
     <div class="app-page" data-page="page2">
       <div class="app-topbar">
-        <div class="app-button left" data-back data-autotitle></div>
+        <div class="app-button left" data-back ><i id="homeicon" class="fas fa-home"></i></div>
         <div class="app-title">Page 2</div>
       </div>
       <div class="app-content">
@@ -63,10 +124,12 @@
     <script>
       App.controller('home', function (page) {
         // put stuff here
+        
       });
 
       App.controller('page2', function (page) {
         // put stuff here
+        
       });
 
       try {
