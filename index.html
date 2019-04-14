@@ -66,17 +66,25 @@
         font-size:1.6rem;
     }
 
-    .break
+    textarea
     {
-        height:0px;
+      /* background-color:red !important; */
+      height:160px !important;
     }
+
+    #submit
+    {
+      width:40px;
+      margin:0 auto;
+    }
+  
     </style>
   </head>
 
   <body>
 
-    
-    <div class="app-page" data-page="home">
+<!-----------------HOME PAGE------------------ --> 
+    <div class="app-page" data-page="home" id="homepage">
       <div class="app-topbar">
         <div class="app-title"><i id="homeicon" class="fas fa-home"></i> Home page</div>
       </div>
@@ -87,7 +95,7 @@
        
         <p class="app-section"><strong>Welcome to MailTO !</strong><br><br><span id="content">Here you can compose and send messages to whoever you want.This app will also create a contact list based on your usage. </span></p>
         
-        <div class="break">&nbsp;</div>
+        <div style="height:0px;">&nbsp;</div>
         
         <div class="app-section">
                 <div class="app-button" data-target="page2">Setup Account</div>
@@ -101,12 +109,49 @@
         </div>
 
         <div class="app-section">
-          <div class="app-button" data-target="page2">Send A new Email</div>
+          <div class="app-button" data-target="sendnew">Send A new Email</div>
         </div>
       </div>
     </div>
+<!-----------------HOME PAGE------------------ -->
+    
 
+<!---------------------Send------------------------>
+        <div class="app-page" data-page="sendnew">
+            <div class="app-topbar">
+            <div class="app-title">Compose</div>
+            <div class="right app-button" data-back><i style="color:white;font-size:1.5rem;" class="fas fa-check-circle"></i></div>
+            </div>
+    
+            
+            <div class="app-section">
+                <label >From:</label>
+                <input class="app-input">
+                <div style="height:35px;">&nbsp;</div>
+            </div>
 
+            <div class="app-section">
+                <label >To:</label>
+                <input class="app-input">
+                <div style="height:35px;">&nbsp;</div>
+            </div>
+    
+            <form >
+              <div class="app-section">
+                  <input class="app-input" name="subject" placeholder="Subject">
+                  <div style="height:30px;">&nbsp;</div>
+                  <textarea class="app-input" name="message" placeholder="Message"></textarea>
+              </div>
+
+              <div  class="app-section" style="height:40px">
+                  <div id="submit" class="app-button green app-submit"><i  style="font-size:2.5rem;" class="far fa-paper-plane"></i></div>
+              </div>
+                <!-- <div style="height:50px;">&nbsp;</div> -->
+                </form>
+            </div>
+        </div>
+
+<!---------------------Send------------------------>
 
 
     <div class="app-page" data-page="page2">
