@@ -290,6 +290,7 @@
 
       
       App.controller('home', function (page) {
+        alert("UDU");
        settheme(page);
       });
 
@@ -303,8 +304,10 @@
 					.on('click', function () {
 						App.dialog({
 							title        : 'This is a Dialog',
-							text         : 'Say stuff to the user and get them to respond',
-							okButton     : 'Submit',
+							// text         : 'Say stuff to the user and get them to respond\n',
+							text       : 'Say stuff2 to the user and get them to respond',
+						
+              okButton     : 'Submit',
 							cancelButton : 'Cancel'
 						}, function (choice) {
 							console.log(choice);

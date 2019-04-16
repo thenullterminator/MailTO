@@ -72,12 +72,16 @@
       height:160px !important;
     }
 
-    #submit
+    .submitdetails
     {
       width:40px;
       margin:0 auto;
     }
-  
+    
+    /* input
+    {
+        background-color:red !important;
+    } */
     </style>
   </head>
 
@@ -90,7 +94,7 @@
       </div>
       <div class="app-content">
 
-        <p class="app-section" id="wel"> <span id="userwel"><strong id="usercont" ><i class="fas fa-user"></i> Hello New User</strong></span></p>
+        <p class="app-section" id="wel"> <span id="userwel"><strong id="usercont" ><i class="fas fa-user"></i>  Hello <span id="greeting"></span></strong></span></p>
        
        
         <p class="app-section"><strong>Welcome to MailTO !</strong><br><br><span id="content">Here you can compose and send messages to whoever you want.This app will also create a contact list based on your usage. </span></p>
@@ -98,7 +102,7 @@
         <div style="height:0px;">&nbsp;</div>
         
         <div class="app-section">
-                <div class="app-button" data-target="page2">Setup Account</div>
+                <div class="app-button" data-target="setup">Setup Account</div>
         </div>
 
         <div class="app-section">
@@ -119,43 +123,74 @@
 <!---------------------Send------------------------>
         <div class="app-page" data-page="sendnew">
             <div class="app-topbar">
+            <div class="app-button left" data-back ></div>
             <div class="app-title">Compose</div>
-            <div class="right app-button" data-back><i style="color:white;font-size:1.5rem;" class="fas fa-check-circle"></i></div>
             </div>
     
-            
+            <form >
             <div class="app-section">
                 <label >From:</label>
-                <input class="app-input">
+                <input type="email" class="app-input" id="from">
                 <div style="height:35px;">&nbsp;</div>
             </div>
 
             <div class="app-section">
                 <label >To:</label>
-                <input class="app-input">
+                <input type="email" class="app-input" id="to">
                 <div style="height:35px;">&nbsp;</div>
             </div>
     
-            <form >
+            
               <div class="app-section">
-                  <input class="app-input" name="subject" placeholder="Subject">
+                  <input class="app-input" name="subject" placeholder="Subject" id="subject">
                   <div style="height:30px;">&nbsp;</div>
-                  <textarea class="app-input" name="message" placeholder="Message"></textarea>
+                  <textarea class="app-input" name="message" placeholder="Message" id="message"></textarea>
               </div>
 
               <div  class="app-section" style="height:40px">
-                  <div id="submit" class="app-button green app-submit"><i  style="font-size:2.5rem;" class="far fa-paper-plane"></i></div>
+                  <div id="submit" class="app-button green app-submit submitdetails"><i  style="font-size:2.5rem;" class="far fa-paper-plane"></i></div>
               </div>
                 
-                </form>
+              </form>
             </div>
         </div>
 <!---------------------Send------------------------>
 
+<!--------------------Setup--------------------->
+
+  <div class="app-page" data-page="setup">
+    <div class="app-topbar">
+    <div class="app-button left" data-back ></div>
+    <div class="app-title">Setup Account</div>
+    <!-- <div class="right app-button" data-back><i style="color:white;font-size:1.5rem;" class="fas fa-check-circle"></i></div> -->
+    </div>
+
+    <form >
+    <div class="app-section">
+        <label >Name:</label>
+        <input type="text" class="app-input" id="name">
+        <div style="height:35px;">&nbsp;</div>
+    </div>
+
+    <div class="app-section">
+        <label >E-Mail Add:</label>
+        <input type="email" class="app-input" id="emailadd">
+        <div style="height:35px;">&nbsp;</div>
+    </div>
+
+    <div  class="app-section" style="height:40px">
+      <div id="submitsetup" class="app-button green app-submit submitdetails" ><i style="color:rgb(107, 206, 107);font-size:2.3rem;" class="fas fa-check-circle"></i></div>
+  </div>
+      </form>
+    </div>
+  </div>
+<!--------------------Setup--------------------->
+
+
 
     <div class="app-page" data-page="page2">
       <div class="app-topbar">
-        <div class="app-button left" data-back ><i id="homeicon" class="fas fa-home"></i></div>
+        <div class="app-button left" data-back ></div>
         <div class="app-title">Page 2</div>
       </div>
       <div class="app-content">
@@ -165,14 +200,123 @@
 
     <script src="zepto.js"></script>
     <script src="app.min.js"></script>
-    <script>
+    <script type="text/Javascript">
+      localStorage.setItem("nameid","New User");
+      
+      function greet(page)
+      {
+        // alert(localStorage.getItem("nameid"));
+        $(page).find("#greeting").html(localStorage.getItem("nameid"));
+      }
+
+
       App.controller('home', function (page) {
         // put stuff here
         
+        greet(page);
+        // $("#greeting").html(username);
       });
 
       App.controller('page2', function (page) {
         // put stuff here
+        
+      });
+
+
+      App.controller('setup', function (page) {
+        
+        $(page).find("#submitsetup").clickable().on('click',function()
+        {
+          var error="";
+          if($("#name").val()=="")
+          {
+            error+='Name is required.  ';
+            
+          }
+          if($("#emailadd").val()=="")
+          {
+            error+='E-Mail Address is required.  ';
+            
+          }
+
+          if($("#emailadd").val()!=""&&!validateEmail($("#emailadd").val()))
+          {
+            error+="E-Mail Address is invalid.  ";
+          }
+
+          if(error!="")
+          {
+            App.dialog({
+            title        : 'There were errors(s):',
+            text         : error ,
+            okButton     : 'OK',
+            });
+          }
+          else
+          {
+            localStorage.setItem("nameid",$("#name").val());
+            
+            App.dialog({
+            title        : 'Setup Complete !',
+            okButton     : 'OK',
+            });
+          }
+        });
+      });
+
+      function validateEmail(email) 
+      { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      } 
+
+      App.controller('sendnew', function (page) {
+
+         $(page).find("#submit").clickable().on('click',function()
+         {
+
+            var error="";
+            if($("#from").val()=="")
+            {
+              error+='From E-Mail Address is required.';
+              
+            }
+            if($("#to").val()=="")
+            {
+              error+="To E-Mail Address is required. ";
+            }
+            if($("#subject").val()=="")
+            {
+              error+="Subject is required. ";
+            }
+            if($("#message").val()=="")
+            {
+              error+="Message is required. ";
+            }
+            if($("#from").val()!=""&&!validateEmail($("#from").val()))
+            {
+              error+="From E-Mail Address is invalid. ";
+            }
+            if($("#to").val()!=""&&!validateEmail($("#to").val()))
+            {
+              error+="To E-Mail Address is invalid. ";
+            }
+
+            if(error!="")
+            {
+              App.dialog({
+              title        : 'There were errors(s):',
+              text         : error ,
+              okButton     : 'OK',
+              });
+            }
+            else
+            {
+                alert("Success!");
+
+            }
+
+         });
         
       });
 
