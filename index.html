@@ -201,25 +201,29 @@
     <script src="zepto.js"></script>
     <script src="app.min.js"></script>
     <script type="text/Javascript">
-      localStorage.setItem("nameid","New User");
-      
-      function greet(page)
-      {
-        // alert(localStorage.getItem("nameid"));
-        $(page).find("#greeting").html(localStorage.getItem("nameid"));
-      }
 
+      if( typeof nameid ==undefined)
+      {
+      localStorage.setItem("nameid","New User");
+      }
+      $("#greeting").html(localStorage.getItem("nameid"));
+      
+
+
+      
+      
 
       App.controller('home', function (page) {
-        // put stuff here
         
-        greet(page);
-        // $("#greeting").html(username);
+        
+       
+        
       });
 
       App.controller('page2', function (page) {
-        // put stuff here
         
+
+
       });
 
 
@@ -260,6 +264,14 @@
             title        : 'Setup Complete !',
             okButton     : 'OK',
             });
+
+            App.load('home',function(){
+
+              $("#greeting").html(localStorage.getItem("nameid"));
+
+            });
+
+
           }
         });
       });
