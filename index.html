@@ -78,6 +78,9 @@
       margin:0 auto;
     }
     
+    label{
+      color:grey;
+    }
     /* input
     {
         background-color:red !important;
@@ -173,8 +176,8 @@
     </div>
 
     <div class="app-section">
-        <label >E-Mail Add:</label>
-        <input type="email" class="app-input" id="emailadd">
+        <label >Primary Email Add:</label>
+        <input type="email" class="app-input" id="emailid" >
         <div style="height:35px;">&nbsp;</div>
     </div>
 
@@ -202,6 +205,7 @@
     <script src="app.min.js"></script>
     <script type="text/Javascript">
 
+
       if( typeof nameid ==undefined)
       {
       localStorage.setItem("nameid","New User");
@@ -227,7 +231,18 @@
       });
 
 
-      App.controller('setup', function (page) {
+      App.controller('setup', function (page) 
+      {
+
+        if(typeof nameid !=undefined)
+        {
+          $(page).find("#name").val(localStorage.getItem("nameid"));
+        }
+
+        if(typeof emailid !=undefined)
+        {
+          $(page).find("#emailid").val(localStorage.getItem("primaryemailid"));
+        }
         
         $(page).find("#submitsetup").clickable().on('click',function()
         {
@@ -237,13 +252,13 @@
             error+='Name is required.  ';
             
           }
-          if($("#emailadd").val()=="")
+          if($("#emailid").val()=="")
           {
             error+='E-Mail Address is required.  ';
             
           }
 
-          if($("#emailadd").val()!=""&&!validateEmail($("#emailadd").val()))
+          if($("#emailid").val()!=""&&!validateEmail($("#emailid").val()))
           {
             error+="E-Mail Address is invalid.  ";
           }
@@ -259,6 +274,7 @@
           else
           {
             localStorage.setItem("nameid",$("#name").val());
+            localStorage.setItem("primaryemailid",$("#emailid").val());
             
             App.dialog({
             title        : 'Setup Complete !',
@@ -270,10 +286,9 @@
               $("#greeting").html(localStorage.getItem("nameid"));
 
             });
-
-
           }
         });
+
       });
 
       function validateEmail(email) 
